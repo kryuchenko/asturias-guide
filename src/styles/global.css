@@ -304,6 +304,21 @@ a:hover {
   color: var(--c-text-muted);
 }
 
+/* MDX prose content */
+.container > h3 {
+  font-size: 1.15rem;
+  margin: 2rem 0 0.75rem;
+}
+
+.container > p {
+  margin-bottom: 1rem;
+}
+
+.container > ul {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
 /* Info Banner */
 .info-banner {
   background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%);
