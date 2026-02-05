@@ -1,12 +1,19 @@
 ---
+interface Props {
+  source?: { label: string; url: string };
+}
+
+const { source } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="container">
     <p>
-      &copy; {year} Asturias Guide &middot;
-      Источник: <a href="https://www.oviedo.es/serviciosbasicos/recogidabasuras" target="_blank" rel="noopener">Ayuntamiento de Oviedo</a>
+      &copy; {year} Asturias Guide
+      {source && (
+        <Fragment>&middot; Источник: <a href={source.url} target="_blank" rel="noopener">{source.label}</a></Fragment>
+      )}
     </p>
   </div>
 </footer>

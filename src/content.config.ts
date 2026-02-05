@@ -9,6 +9,7 @@ const guides = defineCollection({
     date: z.string(),
     image: z.string().optional(),
     lang: z.string().default('ru'),
+    source: z.object({ label: z.string(), url: z.string() }).optional(),
   }),
 });
 
