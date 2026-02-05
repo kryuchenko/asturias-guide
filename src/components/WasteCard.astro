@@ -40,6 +40,6 @@ const base = import.meta.env.BASE_URL;
         </ul>
       </div>
     </div>
-    {tip && <div class="waste-card__tip">💡 {tip}</div>}
+    {tip && <div class="waste-card__tip" set:html={`💡 ${tip}`} />}
   </div>
 </div>
