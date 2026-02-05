@@ -1,0 +1,54 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  lang?: string;
+  type?: string;
+  canonicalUrl?: string;
+}
+
+const base = import.meta.env.BASE_URL;
+const site = import.meta.env.SITE;
+
+const {
+  title,
+  description,
+  image = `${base}images/banner-reciclaje.png`,
+  lang = 'ru',
+  type = 'article',
+  canonicalUrl,
+} = Astro.props;
+
+const siteBase = `${site}${base}`.replace(/([^:])\/\//g, '$1/');
+const fullImageUrl = image.startsWith('http') ? image : `${site}${image}`.replace(/([^:])\/\//g, '$1/');
+const canonical = canonicalUrl || Astro.url.href;
+
+const alternateRu = `${siteBase}ru/`;
+const alternateEn = `${siteBase}en/`;
+---
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<link rel="alternate" hreflang="ru" href={alternateRu} />
+<link rel="alternate" hreflang="en" href={alternateEn} />
+<link rel="alternate" hreflang="x-default" href={alternateRu} />
+
+<meta property="og:type" content={type} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={lang === 'ru' ? 'ru_RU' : 'en_US'} />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={fullImageUrl} />
+
+<link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+<meta name="generator" content={Astro.generator} />

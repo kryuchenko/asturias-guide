@@ -1,0 +1,31 @@
+---
+interface Contact {
+  label: string;
+  phone?: string;
+  address?: string;
+  url?: string;
+}
+
+interface Props {
+  title?: string;
+  contacts: Contact[];
+}
+
+const { title = 'Контакты', contacts } = Astro.props;
+---
+
+<div class="contacts-block">
+  <h3>{title}</h3>
+  <ul class="contacts-block__list">
+    {contacts.map((c) => (
+      <li>
+        <span>{c.label}</span>
+        <span>
+          {c.phone && <a href={`tel:${c.phone.replace(/\s/g, '')}`}>{c.phone}</a>}
+          {c.address && <span>{c.address}</span>}
+          {c.url && <a href={c.url} target="_blank" rel="noopener">{c.url}</a>}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>

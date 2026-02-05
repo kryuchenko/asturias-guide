@@ -1,0 +1,29 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const guides = await getCollection('guides', ({ data }) => data.lang === 'ru');
+const base = import.meta.env.BASE_URL;
+---
+
+<Base
+  title="Asturias Guide — Справки для жизни в Астурии"
+  description="Полезные гайды для русскоязычных жителей Астурии: сортировка мусора, документы, услуги."
+  lang="ru"
+  type="website"
+>
+  <h1 class="page-title">Справки для жизни в Астурии</h1>
+  <p class="page-subtitle">Полезные гайды на русском языке</p>
+
+  <ul class="guide-list">
+    {guides.map((guide) => (
+      <li class="guide-list__item">
+        <div class="guide-list__emoji">♻️</div>
+        <div class="guide-list__content">
+          <h3><a href={`${base}ru/guides/${guide.id.replace(/^ru\//, '')}/`}>{guide.data.title}</a></h3>
+          <p>{guide.data.description}</p>
+        </div>
+      </li>
+    ))}
+  </ul>
+</Base>

@@ -1,0 +1,45 @@
+---
+interface Props {
+  color: 'yellow' | 'blue' | 'green' | 'brown' | 'grey';
+  title: string;
+  emoji: string;
+  frequency: string;
+  image?: string;
+  yes: string[];
+  no: string[];
+  tip?: string;
+}
+
+const { color, title, emoji, frequency, image, yes, no, tip } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<div class="waste-card">
+  <div class={`waste-card__header waste-card__header--${color}`}>
+    <span class="waste-card__emoji">{emoji}</span>
+    <span class="waste-card__title">{title}</span>
+  </div>
+  <div class="waste-card__body">
+    {image && (
+      <div class="waste-card__image">
+        <img src={`${base}images/${image}`} alt={title} loading="lazy" />
+      </div>
+    )}
+    <div class="waste-card__frequency">{frequency}</div>
+    <div class="waste-card__lists">
+      <div class="waste-card__list waste-card__list--yes">
+        <h4>Можно</h4>
+        <ul>
+          {yes.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+      <div class="waste-card__list waste-card__list--no">
+        <h4>Нельзя</h4>
+        <ul>
+          {no.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
+    </div>
+    {tip && <div class="waste-card__tip">💡 {tip}</div>}
+  </div>
+</div>

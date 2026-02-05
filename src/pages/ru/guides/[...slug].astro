@@ -1,0 +1,39 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides', ({ data }) => data.lang === 'ru');
+  return guides.map((guide) => ({
+    params: { slug: guide.id.replace(/^ru\//, '') },
+    props: { guide },
+  }));
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: guide.data.title,
+  description: guide.data.description,
+  datePublished: guide.data.date,
+  inLanguage: 'ru',
+  publisher: {
+    '@type': 'Organization',
+    name: 'Asturias Guide',
+  },
+};
+---
+
+<Base
+  title={guide.data.title}
+  description={guide.data.description}
+  image={guide.data.image}
+  lang="ru"
+>
+  <h1 class="page-title">{guide.data.title}</h1>
+  <Content />
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+</Base>

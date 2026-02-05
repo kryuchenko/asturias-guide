@@ -1,0 +1,27 @@
+---
+interface WasteItem {
+  emoji: string;
+  title: string;
+  description: string;
+}
+
+interface Props {
+  title?: string;
+  items: WasteItem[];
+}
+
+const { title = 'Спецотходы', items } = Astro.props;
+---
+
+<div class="special-waste">
+  <h3>{title}</h3>
+  <div class="special-waste__grid">
+    {items.map((item) => (
+      <div class="special-waste__item">
+        <div class="special-waste__item-emoji">{item.emoji}</div>
+        <h4>{item.title}</h4>
+        <p>{item.description}</p>
+      </div>
+    ))}
+  </div>
+</div>

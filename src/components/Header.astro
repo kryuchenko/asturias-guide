@@ -1,0 +1,21 @@
+---
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'ru' } = Astro.props;
+const base = import.meta.env.BASE_URL;
+---
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <a href={`${base}${lang}/`} class="site-header__logo">Asturias Guide</a>
+    <nav class="site-header__nav">
+      <a href={`${base}${lang}/`} class="active">Справки</a>
+      <div class="lang-switch">
+        <a href={`${base}ru/`} class:list={[{ active: lang === 'ru' }]}>RU</a>
+        <a href={`${base}en/`} class:list={[{ active: lang === 'en' }]}>EN</a>
+      </div>
+    </nav>
+  </div>
+</header>
